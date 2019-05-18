@@ -29,8 +29,7 @@ public class FileEventStreamReader {
 
     @PostConstruct
     private void postConstruct() throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", eventStreamFileLocation);
+        ProcessBuilder processBuilder = new ProcessBuilder(eventStreamFileLocation);
         Process process = processBuilder.start();
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(process.getInputStream()));
