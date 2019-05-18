@@ -1,4 +1,4 @@
-package test.com.heed.mp.helloworld;
+package test.com.bigpanda.event.processor;
 
 import org.junit.Test;
 
