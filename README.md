@@ -7,3 +7,7 @@
 http://localhost:8080/v1/stats 
 
 
+## improvements:
+
+### 1. containarize the application in order to not depend on environment
+### 2. if there might be another services that might consume events i would separate the event consumer on a different service and would send message in rabbit/kafka/amazonMQ   
