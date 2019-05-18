@@ -1,4 +1,3 @@
-# K8S Hello World Java
+# event processor
 
-This is a sample project containing all best practices for a spring based service 
-in our k8s platform....
+here will be guidance how to run....
