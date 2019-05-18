@@ -21,4 +21,10 @@ class AppDriver {
     void retrievedGreetingIs(String greeting) {
         assert this.receivedGreeting.greeting == greeting
     }
+
+    def stats() {
+        def response = client.get(path: '/v1/stats')
+        assert response.status == 200
+        return response
+    }
 }

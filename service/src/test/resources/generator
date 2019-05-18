@@ -1,0 +1,2 @@
+echo "{ \"event_type\": \"baz\", \"data\": \"amet\", \"timestamp\": 1558167148 }"
+tail -f
