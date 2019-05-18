@@ -28,7 +28,6 @@ public class FileEventStreamReaderIT {
         public EventDataStore eventDataStore(){
             return mock(EventDataStore.class);
         }
-
     }
 
     @Autowired
@@ -38,7 +37,7 @@ public class FileEventStreamReaderIT {
     EventDataStore eventDataStore;
 
     @Test
-    public void shouldReadStreamEventIntoStore() {
+    public void shouldReadStreamEventIntoStoreWhileIgnoringDamagedLine() {
         verify(eventDataStore).store(expectedEvent());
     }
 
