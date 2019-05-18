@@ -1,0 +1,96 @@
+buildscript {
+    ext.deps = [
+            springBootVersion: "1.5.9.RELEASE",
+            log4jVersion     : "2.6.2",
+            lombockVersion   : "1.16.20",
+            gsonVersion      : "2.7"
+    ]
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'findbugs'
+
+findbugs {
+    findbugsTest.enabled = false
+    sourceSets = [sourceSets.main]
+}
+
+jar {
+    baseName = 'event-processor'
+    version = '0.1.0'
+}
+
+bootRepackage {
+    mainClass = 'com.bigpanda.event.processor.Application'
+}
+
+mainClassName = 'com.bigpanda.event.processor.Application'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    configurations {
+        all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+        all*.exclude group: "ch.qos.logback"
+        all*.exclude group: "org.slf4j", module: "log4j-over-slf4j" // allow using log4j 2.x
+        all*.exclude group: "org.slf4j", module: "slf4j-simple"     // log4j is the configured backend
+
+    }
+    compile "org.springframework.boot:spring-boot-starter-log4j2:${deps.springBootVersion}"
+    compile "org.apache.logging.log4j:log4j-api:${deps.log4jVersion}"
+    compile "org.apache.logging.log4j:log4j-core:${deps.log4jVersion}"
+    compile "org.apache.logging.log4j:log4j-web:${deps.log4jVersion}"
+    compile "org.apache.logging.log4j:log4j-jcl:${deps.log4jVersion}"
+    compile "org.apache.logging.log4j:log4j-slf4j-impl:${deps.log4jVersion}" // send all slf4j events to log4j 2.x
+
+
+    // General
+    compileOnly "org.projectlombok:lombok:${deps.lombockVersion}"
+    compile "com.google.code.gson:gson:${deps.gsonVersion}"
+
+    // Spring
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile "org.springframework.boot:spring-boot-starter-jetty"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile 'io.sentry:sentry-spring:1.6.5'
+
+    // Java test
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'junit:junit'
+
+    // Groovy test
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.7'
+    testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+
+}
+
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4'
+}
