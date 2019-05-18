@@ -31,10 +31,10 @@ jar {
 }
 
 bootRepackage {
-    mainClass = 'com.bigpanda.event.processor.Application'
+    mainClass = 'com.bigpanda.event.proccesor.Application'
 }
 
-mainClassName = 'com.bigpanda.event.processor.Application'
+mainClassName = 'com.bigpanda.event.proccesor.Application'
 
 repositories {
     mavenCentral()

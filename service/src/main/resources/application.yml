@@ -1,2 +1,2 @@
 streamFileLocation:
-  service/src/main/resources/generator-macosx-amd64
+  src/main/resources/generator-macosx-amd64
