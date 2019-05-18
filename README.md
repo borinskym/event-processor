@@ -1,6 +1,6 @@
 # event processor
 
-####in order to start the service please use command: 
+#### in order to start the service please use command 
 ./gradlew bootRun
 
 #### stats will be available at
